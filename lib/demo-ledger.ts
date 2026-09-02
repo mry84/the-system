@@ -13,27 +13,27 @@ const NAMES = [
   ["Shook", false, 2014],
 ] as const;
 
-const TITLES: [string, number, string | null][] = [
-  ["The Killer", 1989, "HK"],
-  ["Hard Boiled", 1992, "HK"],
-  ["Chungking Express", 1994, "HK"],
-  ["In the Mood for Love", 2000, "HK"],
-  ["Infernal Affairs", 2002, "HK"],
-  ["Heat", 1995, null],
-  ["Goodfellas", 1990, null],
-  ["Blade Runner", 1982, null],
-  ["The Thing", 1982, null],
-  ["Die Hard", 1988, null],
-  ["They Live", 1988, null],
-  ["Pulp Fiction", 1994, null],
-  ["Fargo", 1996, null],
-  ["The Big Lebowski", 1998, null],
-  ["Se7en", 1995, null],
-  ["The Matrix", 1999, null],
-  ["Oldboy", 2003, null],
-  ["Drive", 2011, null],
-  ["Police Story", 1985, "HK"],
-  ["Kung Fu Hustle", 2004, "HK"],
+const TITLES: [string, number, string | null, string | null][] = [
+  ["The Killer", 1989, "HK", null],
+  ["Hard Boiled", 1992, "HK", null],
+  ["Chungking Express", 1994, "HK", null],
+  ["In the Mood for Love", 2000, "HK", null],
+  ["Infernal Affairs", 2002, "HK", null],
+  ["Heat", 1995, null, "https://www.impawards.com/1995/posters/heat.jpg"],
+  ["Goodfellas", 1990, null, "https://image.tmdb.org/t/p/w500/aKuFiU82s5ISJpGZp7YkIr3kCUd.jpg"],
+  ["Blade Runner", 1982, null, "https://www.impawards.com/1982/posters/blade_runner.jpg"],
+  ["The Thing", 1982, null, "https://www.impawards.com/1982/posters/thing.jpg"],
+  ["Die Hard", 1988, null, "https://www.impawards.com/1988/posters/die_hard.jpg"],
+  ["They Live", 1988, null, "https://www.impawards.com/1988/posters/they_live.jpg"],
+  ["Pulp Fiction", 1994, null, "https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg"],
+  ["Fargo", 1996, null, "https://www.impawards.com/1996/posters/fargo.jpg"],
+  ["The Big Lebowski", 1998, null, null],
+  ["Se7en", 1995, null, "https://www.impawards.com/1995/posters/seven_ver1.jpg"],
+  ["The Matrix", 1999, null, "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg"],
+  ["Oldboy", 2003, null, "https://www.impawards.com/2005/posters/oldboy.jpg"],
+  ["Drive", 2011, null, "https://image.tmdb.org/t/p/w500/602vevIURmpDfzbnv5Ubi6wIkQm.jpg"],
+  ["Police Story", 1985, "HK", null],
+  ["Kung Fu Hustle", 2004, "HK", "https://www.impawards.com/2005/posters/kung_fu_hustle.jpg"],
 ];
 
 function mulberry32(seed: number) {
@@ -55,13 +55,13 @@ export function buildDemoRaw() {
     verified: true,
     createdAt: new Date("1998-09-01"),
   }));
-  const films = TITLES.map(([title, year, country]) => ({
+  const films = TITLES.map(([title, year, country, posterPath]) => ({
     id: filmSlug(title, year),
     slug: filmSlug(title, year),
     title,
     year,
     country,
-    posterPath: null as string | null,
+    posterPath,
     tmdbId: null as number | null,
     imdbId: null as string | null,
   }));
