@@ -4,10 +4,14 @@ import { LogForm } from "@/components/LogForm";
 export const dynamic = "force-dynamic";
 
 export default async function LogPage() {
-  const people = await prisma.person.findMany({
-    where: { verified: true },
-    orderBy: { name: "asc" },
-  });
+  const people = process.env.DATABASE_URL
+    ? await prisma.person
+        .findMany({
+          where: { verified: true },
+          orderBy: { name: "asc" },
+        })
+        .catch(() => [])
+    : [];
 
   return (
     <div className="space-y-6">

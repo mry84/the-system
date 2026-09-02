@@ -21,6 +21,11 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-8">
+      {!latest ? (
+        <div className="rounded-2xl bg-bg2 px-4 py-5 text-sm leading-6 text-muted">
+          The System is live. The Log is not attached yet. Nights appear after Neon is connected.
+        </div>
+      ) : null}
       {latest ? (
         <Link href={`/nights/${latest.id}`} className="block overflow-hidden rounded-2xl bg-bg2">
           <div className="grid sm:grid-cols-[160px_1fr]">
@@ -70,7 +75,9 @@ export default async function HomePage() {
       <section className="space-y-3">
         <div className="flex items-end justify-between">
           <h3 className="text-lg font-semibold">Most watched</h3>
-          <Link href="/films" className="text-sm text-cta">Films</Link>
+          <Link href="/films" className="text-sm text-cta">
+            Films
+          </Link>
         </div>
         <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1">
           {mostWatched.map((film) => (
@@ -78,7 +85,9 @@ export default async function HomePage() {
               <div className="overflow-hidden rounded-xl bg-bg3">
                 <PosterSheet film={film} posterPath={film.posterPath} />
               </div>
-              <Link href={`/films/${film.slug}`} className="mt-2 block truncate text-sm font-medium">{film.title}</Link>
+              <Link href={`/films/${film.slug}`} className="mt-2 block truncate text-sm font-medium">
+                {film.title}
+              </Link>
               <p className="text-xs text-muted">{film.stats.watchedCount} screenings</p>
             </div>
           ))}
@@ -93,7 +102,9 @@ export default async function HomePage() {
               <div className="overflow-hidden rounded-xl bg-bg3">
                 <PosterSheet film={film} posterPath={film.posterPath} />
               </div>
-              <Link href={`/films/${film.slug}`} className="mt-2 block truncate text-sm font-medium">{film.title}</Link>
+              <Link href={`/films/${film.slug}`} className="mt-2 block truncate text-sm font-medium">
+                {film.title}
+              </Link>
               <p className="text-xs text-muted">{film.stats.pickCount} picks</p>
             </div>
           ))}
@@ -109,7 +120,9 @@ export default async function HomePage() {
                 <p className="font-medium">{person.name}</p>
                 <p className="text-sm text-muted">{person.stats.goldenChild}</p>
               </div>
-              <div className="mt-2"><BadgeList badges={person.badges} /></div>
+              <div className="mt-2">
+                <BadgeList badges={person.badges} />
+              </div>
             </Link>
           ))}
         </div>
@@ -119,11 +132,17 @@ export default async function HomePage() {
         <h3 className="text-lg font-semibold">Crusades</h3>
         <div className="grid gap-2">
           {topCrusades.map((c) => (
-            <Link key={`${c.personId}-${c.filmId}-${c.length}-${c.active}`} href={`/films/${c.filmSlug}`} className="rounded-2xl bg-bg2 px-4 py-4">
+            <Link
+              key={`${c.personId}-${c.filmId}-${c.length}-${c.active}`}
+              href={`/films/${c.filmSlug}`}
+              className="rounded-2xl bg-bg2 px-4 py-4"
+            >
               <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">
                 {c.active ? "Open" : "Closed"} · {c.length} sessions
               </p>
-              <p className="mt-1 font-medium">{c.personName} · {c.filmTitle}</p>
+              <p className="mt-1 font-medium">
+                {c.personName} · {c.filmTitle}
+              </p>
             </Link>
           ))}
         </div>
