@@ -13,27 +13,27 @@ const NAMES = [
   ["Shook", false, 2014],
 ] as const;
 
-const TITLES: [string, number, string | null, string | null][] = [
-  ["The Killer", 1989, "HK", "https://image.tmdb.org/t/p/w500/8hTxlSqMAHBXAh1eB69ir0BXhzE.jpg"],
-  ["Hard Boiled", 1992, "HK", "https://image.tmdb.org/t/p/w500/1k14PPykkUQfhjn3xXDrc55lfHl.jpg"],
-  ["Chungking Express", 1994, "HK", "https://image.tmdb.org/t/p/w500/43I9DcNoCzpyzK8JCkJYpHqHqGG.jpg"],
-  ["In the Mood for Love", 2000, "HK", "https://image.tmdb.org/t/p/w500/iYypPT4bhqXfq1b6EnmxvRt6b2Y.jpg"],
-  ["Infernal Affairs", 2002, "HK", "https://image.tmdb.org/t/p/w500/eJrD94E1msYEa0DygvkvdEKpChm.jpg"],
-  ["Heat", 1995, null, "https://image.tmdb.org/t/p/w500/pWDtjs568ZfOTMbURQBYuT4Qxka.jpg"],
-  ["Goodfellas", 1990, null, "https://image.tmdb.org/t/p/w500/aKuFiU82s5ISJpGZp7YkIr3kCUd.jpg"],
-  ["Blade Runner", 1982, null, "https://image.tmdb.org/t/p/w500/63N9uy8nd9j7Eog2axPQ8lbr3Wj.jpg"],
-  ["The Thing", 1982, null, "https://image.tmdb.org/t/p/w500/tzGY49kseSE9QAKk47uuDGwnSCu.jpg"],
-  ["Die Hard", 1988, null, "https://image.tmdb.org/t/p/w500/7Bjd8kfmDSOzpmhySpEhkUyK2oH.jpg"],
-  ["They Live", 1988, null, "https://image.tmdb.org/t/p/w500/t4p8r8kfB2jHiK8J36XnfSP8cRO.jpg"],
-  ["Pulp Fiction", 1994, null, "https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg"],
-  ["Fargo", 1996, null, "https://image.tmdb.org/t/p/w500/rt7cpEr1uP6RTZykBFhBTcRaKvG.jpg"],
-  ["The Big Lebowski", 1998, null, "https://image.tmdb.org/t/p/w500/3bv6WAp6BSxxYvB5ozKFUYuRA8C.jpg"],
-  ["Se7en", 1995, null, "https://image.tmdb.org/t/p/w500/191nKfP0ehp3uIvWqgPbFmI4lv9.jpg"],
-  ["The Matrix", 1999, null, "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg"],
-  ["Oldboy", 2003, null, "https://image.tmdb.org/t/p/w500/diAYqR4xdF9Hnj7qun6DEQhRrT2.jpg"],
-  ["Drive", 2011, null, "https://image.tmdb.org/t/p/w500/602vevIURmpDfzbnv5Ubi6wIkQm.jpg"],
-  ["Police Story", 1985, "HK", "https://image.tmdb.org/t/p/w500/lM4bahouPblYcfngZtnNSkaWxCU.jpg"],
-  ["Kung Fu Hustle", 2004, "HK", "https://image.tmdb.org/t/p/w500/exbyTbrvRUDKN2mcNEuVor4VFQW.jpg"],
+const TITLES: [string, number, string | null, string | null, string | null][] = [
+  ["The Killer", 1989, "HK", "https://image.tmdb.org/t/p/w500/8hTxlSqMAHBXAh1eB69ir0BXhzE.jpg", "tt0097202"],
+  ["Hard Boiled", 1992, "HK", "https://image.tmdb.org/t/p/w500/1k14PPykkUQfhjn3xXDrc55lfHl.jpg", "tt0104684"],
+  ["Chungking Express", 1994, "HK", "https://image.tmdb.org/t/p/w500/43I9DcNoCzpyzK8JCkJYpHqHqGG.jpg", "tt0109424"],
+  ["In the Mood for Love", 2000, "HK", "https://image.tmdb.org/t/p/w500/iYypPT4bhqXfq1b6EnmxvRt6b2Y.jpg", "tt0118694"],
+  ["Infernal Affairs", 2002, "HK", "https://image.tmdb.org/t/p/w500/eJrD94E1msYEa0DygvkvdEKpChm.jpg", "tt0338564"],
+  ["Heat", 1995, null, "https://image.tmdb.org/t/p/w500/pWDtjs568ZfOTMbURQBYuT4Qxka.jpg", "tt0113277"],
+  ["Goodfellas", 1990, null, "https://image.tmdb.org/t/p/w500/aKuFiU82s5ISJpGZp7YkIr3kCUd.jpg", "tt0099685"],
+  ["Blade Runner", 1982, null, "https://image.tmdb.org/t/p/w500/63N9uy8nd9j7Eog2axPQ8lbr3Wj.jpg", "tt0083658"],
+  ["The Thing", 1982, null, "https://image.tmdb.org/t/p/w500/tzGY49kseSE9QAKk47uuDGwnSCu.jpg", "tt0084787"],
+  ["Die Hard", 1988, null, "https://image.tmdb.org/t/p/w500/7Bjd8kfmDSOzpmhySpEhkUyK2oH.jpg", "tt0095016"],
+  ["They Live", 1988, null, "https://image.tmdb.org/t/p/w500/t4p8r8kfB2jHiK8J36XnfSP8cRO.jpg", "tt0096256"],
+  ["Pulp Fiction", 1994, null, "https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg", "tt0110912"],
+  ["Fargo", 1996, null, "https://image.tmdb.org/t/p/w500/rt7cpEr1uP6RTZykBFhBTcRaKvG.jpg", "tt0116282"],
+  ["The Big Lebowski", 1998, null, "https://image.tmdb.org/t/p/w500/3bv6WAp6BSxxYvB5ozKFUYuRA8C.jpg", "tt0118715"],
+  ["Se7en", 1995, null, "https://image.tmdb.org/t/p/w500/191nKfP0ehp3uIvWqgPbFmI4lv9.jpg", "tt0114369"],
+  ["The Matrix", 1999, null, "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg", "tt0133093"],
+  ["Oldboy", 2003, null, "https://image.tmdb.org/t/p/w500/diAYqR4xdF9Hnj7qun6DEQhRrT2.jpg", "tt0364569"],
+  ["Drive", 2011, null, "https://image.tmdb.org/t/p/w500/602vevIURmpDfzbnv5Ubi6wIkQm.jpg", "tt0780504"],
+  ["Police Story", 1985, "HK", "https://image.tmdb.org/t/p/w500/lM4bahouPblYcfngZtnNSkaWxCU.jpg", "tt0089374"],
+  ["Kung Fu Hustle", 2004, "HK", "https://image.tmdb.org/t/p/w500/exbyTbrvRUDKN2mcNEuVor4VFQW.jpg", "tt0373074"],
 ];
 
 function mulberry32(seed: number) {
@@ -55,7 +55,7 @@ export function buildDemoRaw() {
     verified: true,
     createdAt: new Date("1998-09-01"),
   }));
-  const films = TITLES.map(([title, year, country, posterPath]) => ({
+  const films = TITLES.map(([title, year, country, posterPath, imdbId]) => ({
     id: filmSlug(title, year),
     slug: filmSlug(title, year),
     title,
@@ -63,7 +63,7 @@ export function buildDemoRaw() {
     country,
     posterPath,
     tmdbId: null as number | null,
-    imdbId: null as string | null,
+    imdbId,
   }));
 
   const nights = Array.from({ length: 80 }, (_, index) => {

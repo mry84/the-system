@@ -10,6 +10,16 @@ export function filmLinks(film: FilmRef) {
   return [
     { label: "The System", href: `/films/${film.slug}`, external: false },
     {
+      label: "Watch / rent",
+      href: `https://www.justwatch.com/us/search?q=${q}`,
+      external: true,
+    },
+    {
+      label: "Trailer",
+      href: `https://www.youtube.com/results?search_query=${q}+official+trailer`,
+      external: true,
+    },
+    {
       label: "IMDb",
       href: film.imdbId
         ? `https://www.imdb.com/title/${film.imdbId}/`
@@ -24,11 +34,6 @@ export function filmLinks(film: FilmRef) {
     {
       label: "Letterboxd",
       href: `https://letterboxd.com/search/${q}/`,
-      external: true,
-    },
-    {
-      label: "Wikipedia",
-      href: `https://en.wikipedia.org/w/index.php?search=${q}`,
       external: true,
     },
   ];
