@@ -23,25 +23,29 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-8">
+      <p className="max-w-xl text-sm leading-6 text-muted">
+        The System is the weekly night. Two picks each. Three on a birthday. Anyone may call Unanimous.
+        The last two stand. The Golden Child chooses. Lobbying continues after that. Proceedings begin at 7.
+        A film may not start until 10. The night is not official until it is in The Log.
+      </p>
+
       {latest ? (
-        <Link href={`/nights/${latest.id}`} className="block overflow-hidden rounded-2xl bg-bg2">
-          <div className="grid sm:grid-cols-[160px_1fr]">
-            <div className="mx-auto w-36 pt-5 sm:mx-0 sm:w-full sm:pt-0">
-              <Poster
-                title={latest.watchedFilm.title}
-                year={latest.watchedFilm.year}
-                posterPath={latest.watchedFilm.posterPath}
-                className="rounded-xl sm:rounded-none"
-              />
-            </div>
-            <div className="flex flex-col justify-center px-5 py-5">
-              <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted">Last session</p>
-              <h2 className="mt-1 text-2xl font-semibold tracking-tight leading-7">{nightVerdict(latest)}</h2>
-              <p className="mt-2 text-sm text-muted">
-                {formatNightDate(latest.date)}
-                {other ? ` · ${latest.watchedFilm.title} / ${other.title}` : ""}
-              </p>
-            </div>
+        <Link href={`/nights/${latest.id}`} className="flex max-h-[28vh] items-center gap-4 overflow-hidden rounded-2xl bg-bg2 p-3 sm:p-4">
+          <div className="w-16 shrink-0 sm:w-20">
+            <Poster
+              title={latest.watchedFilm.title}
+              year={latest.watchedFilm.year}
+              posterPath={latest.watchedFilm.posterPath}
+              className="rounded-lg"
+            />
+          </div>
+          <div className="min-w-0">
+            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted">Last session</p>
+            <h2 className="mt-1 text-lg font-semibold leading-6 tracking-tight sm:text-xl">{nightVerdict(latest)}</h2>
+            <p className="mt-1 truncate text-sm text-muted">
+              {formatNightDate(latest.date)}
+              {other ? ` · ${latest.watchedFilm.title} / ${other.title}` : ""}
+            </p>
           </div>
         </Link>
       ) : (
