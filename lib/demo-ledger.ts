@@ -15,7 +15,7 @@ const NAMES = [
 
 const TITLES: [string, number, string | null, string | null, string | null][] = [
   ["The Killer", 1989, "HK", "https://image.tmdb.org/t/p/w500/8hTxlSqMAHBXAh1eB69ir0BXhzE.jpg", "tt0097202"],
-  ["Hard Boiled", 1992, "HK", "https://image.tmdb.org/t/p/w500/1k14PPykkUQfhjn3xXDrc55lfHl.jpg", "tt0104684"],
+  ["Hard Boiled", 1992, "HK", "https://image.tmdb.org/t/p/w500/oMqr4CGGqVlfI8DdrSelK1e9aFM.jpg", "tt0104684"],
   ["Chungking Express", 1994, "HK", "https://image.tmdb.org/t/p/w500/43I9DcNoCzpyzK8JCkJYpHqHqGG.jpg", "tt0109424"],
   ["In the Mood for Love", 2000, "HK", "https://image.tmdb.org/t/p/w500/iYypPT4bhqXfq1b6EnmxvRt6b2Y.jpg", "tt0118694"],
   ["Infernal Affairs", 2002, "HK", "https://image.tmdb.org/t/p/w500/eJrD94E1msYEa0DygvkvdEKpChm.jpg", "tt0338564"],
