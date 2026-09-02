@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Person {
+  id         String   @id @default(cuid())
+  slug       String   @unique
+  name       String
+  isFounding Boolean  @default(false)
+  verified   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  attendances       Attendance[]
+  picks             Pick[]
+  goldenChildNights SystemNight[] @relation("GoldenChild")
+  badges            PersonBadge[]
+}
+
+model Film {
+  id         String  @id @default(cuid())
+  slug       String  @unique
+  title      String
+  year       Int
+  country    String?
+  posterPath String?
+  tmdbId     Int?
+  imdbId     String?
+
+  picks     Pick[]
+  finalists Finalist[]
+  watched   SystemNight[] @relation("WatchedFilm")
+  badges    FilmBadge[]
+
+  @@unique([title, year])
+}
+
+model SystemNight {
+  id            String   @id @default(cuid())
+  date          DateTime
+  notes         String?
+  unanimous     Boolean  @default(false)
+  goldenChildId String?
+  watchedFilmId String
+  createdAt     DateTime @default(now())
+
+  goldenChild Person?      @relation("GoldenChild", fields: [goldenChildId], references: [id])
+  watchedFilm Film         @relation("WatchedFilm", fields: [watchedFilmId], references: [id])
+  attendees   Attendance[]
+  picks       Pick[]
+  finalists   Finalist[]
+
+  @@index([date])
+}
+
+model Attendance {
+  id       String @id @default(cuid())
+  nightId  String
+  personId String
+
+  night  SystemNight @relation(fields: [nightId], references: [id], onDelete: Cascade)
+  person Person      @relation(fields: [personId], references: [id])
+
+  @@unique([nightId, personId])
+}
+
+model Pick {
+  id       String @id @default(cuid())
+  nightId  String
+  personId String
+  filmId   String
+  weight   Int
+
+  night  SystemNight @relation(fields: [nightId], references: [id], onDelete: Cascade)
+  person Person      @relation(fields: [personId], references: [id])
+  film   Film        @relation(fields: [filmId], references: [id])
+
+  @@index([personId, filmId])
+}
+
+model Finalist {
+  id      String @id @default(cuid())
+  nightId String
+  filmId  String
+
+  night SystemNight @relation(fields: [nightId], references: [id], onDelete: Cascade)
+  film  Film        @relation(fields: [filmId], references: [id])
+
+  @@unique([nightId, filmId])
+}
+
+model Badge {
+  id          String @id @default(cuid())
+  slug        String @unique
+  name        String
+  description String
+  appliesTo   String
+  source      String
+
+  people PersonBadge[]
+  films  FilmBadge[]
+}
+
+model PersonBadge {
+  personId String
+  badgeId  String
+
+  person Person @relation(fields: [personId], references: [id], onDelete: Cascade)
+  badge  Badge  @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@id([personId, badgeId])
+}
+
+model FilmBadge {
+  filmId  String
+  badgeId String
+
+  film  Film  @relation(fields: [filmId], references: [id], onDelete: Cascade)
+  badge Badge  @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@id([filmId, badgeId])
+}
