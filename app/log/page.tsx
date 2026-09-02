@@ -11,11 +11,7 @@ export default async function LogPage() {
     <div className="space-y-6">
       <div>
         <h2 className="text-3xl font-semibold tracking-tight">The Log</h2>
-        <p className="mt-3 max-w-xl text-sm leading-6 text-muted">
-          Proceedings begin at 7. A film may not start until 10. Anyone may call Unanimous.
-          After the Golden Child is named, lobbying is still in order. Two picks each. Three on
-          a birthday. The night is not official until it is in The Log.
-        </p>
+        <p className="mt-3 text-sm text-muted">When. Who. What. What. What.</p>
       </div>
       <LogForm people={roster} />
     </div>
