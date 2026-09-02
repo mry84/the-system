@@ -30,19 +30,16 @@ export default async function HomePage() {
       </p>
 
       {latest ? (
-        <Link href={`/nights/${latest.id}`} className="flex max-h-[28vh] items-center gap-4 overflow-hidden rounded-2xl bg-bg2 p-3 sm:p-4">
-          <div className="w-16 shrink-0 sm:w-20">
-            <Poster
-              title={latest.watchedFilm.title}
-              year={latest.watchedFilm.year}
-              posterPath={latest.watchedFilm.posterPath}
-              className="rounded-lg"
-            />
-          </div>
-          <div className="min-w-0">
+        <Link href={`/nights/${latest.id}`} className="block overflow-hidden rounded-2xl bg-bg2">
+          <img
+            src={latest.watchedFilm.posterPath ?? ""}
+            alt={`${latest.watchedFilm.title} (${latest.watchedFilm.year})`}
+            className="h-[42vh] w-full object-cover object-top sm:h-[46vh]"
+          />
+          <div className="px-4 py-4">
             <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted">Last session</p>
-            <h2 className="mt-1 text-lg font-semibold leading-6 tracking-tight sm:text-xl">{nightVerdict(latest)}</h2>
-            <p className="mt-1 truncate text-sm text-muted">
+            <h2 className="mt-1 text-xl font-semibold leading-6 tracking-tight">{nightVerdict(latest)}</h2>
+            <p className="mt-1 text-sm text-muted">
               {formatNightDate(latest.date)}
               {other ? ` · ${latest.watchedFilm.title} / ${other.title}` : ""}
             </p>
