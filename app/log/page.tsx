@@ -1,17 +1,11 @@
-import { prisma } from "@/lib/prisma";
 import { LogForm } from "@/components/LogForm";
+import { loadLedger } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
 
 export default async function LogPage() {
-  const people = process.env.DATABASE_URL
-    ? await prisma.person
-        .findMany({
-          where: { verified: true },
-          orderBy: { name: "asc" },
-        })
-        .catch(() => [])
-    : [];
+  const { people } = await loadLedger();
+  const roster = people.filter((person: { verified: boolean }) => person.verified);
 
   return (
     <div className="space-y-6">
@@ -23,7 +17,7 @@ export default async function LogPage() {
           a birthday. The night is not official until it is in The Log.
         </p>
       </div>
-      <LogForm people={people} />
+      <LogForm people={roster} />
     </div>
   );
 }

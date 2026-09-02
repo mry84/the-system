@@ -1,4 +1,5 @@
 import { prisma } from "./prisma";
+import { buildDemoRaw } from "./demo-ledger";
 import { computeCrusades } from "./crusades";
 import {
   currentCrusade,
@@ -8,43 +9,34 @@ import {
 } from "./badges";
 import type { FilmLedgerStats } from "./types";
 
-function emptyLedger() {
-  return {
-    people: [] as any[],
-    films: [] as any[],
-    nights: [] as any[],
-    crusades: [] as any[],
-    heavyNomineeCutoff: 99,
-  };
-}
-
 export async function loadLedger() {
-  if (!process.env.DATABASE_URL) return emptyLedger();
-
   try {
-    const [people, films, nights] = await Promise.all([
-      prisma.person.findMany({ orderBy: { name: "asc" } }),
-      prisma.film.findMany({ orderBy: [{ title: "asc" }, { year: "asc" }] }),
-      prisma.systemNight.findMany({
-        orderBy: { date: "desc" },
-        include: {
-          goldenChild: true,
-          watchedFilm: true,
-          attendees: { include: { person: true } },
-          picks: { include: { person: true, film: true } },
-          finalists: { include: { film: true } },
-        },
-      }),
-    ]);
+    const raw = process.env.DATABASE_URL
+      ? {
+          people: await prisma.person.findMany({ orderBy: { name: "asc" } }),
+          films: await prisma.film.findMany({ orderBy: [{ title: "asc" }, { year: "asc" }] }),
+          nights: await prisma.systemNight.findMany({
+            orderBy: { date: "desc" },
+            include: {
+              goldenChild: true,
+              watchedFilm: true,
+              attendees: { include: { person: true } },
+              picks: { include: { person: true, film: true } },
+              finalists: { include: { film: true } },
+            },
+          }),
+        }
+      : buildDemoRaw();
+    const { people, films, nights } = raw as any;
 
     const crusades = computeCrusades(
-      nights.map((n) => ({
+      nights.map((n: any) => ({
         id: n.id,
         date: n.date,
         goldenChildId: n.goldenChildId,
         watchedFilmId: n.watchedFilmId,
-        attendees: n.attendees.map((a) => ({ personId: a.personId })),
-        picks: n.picks.map((p) => ({
+        attendees: n.attendees.map((a: any) => ({ personId: a.personId })),
+        picks: n.picks.map((p: any) => ({
           personId: p.personId,
           filmId: p.filmId,
           weight: p.weight,
@@ -104,27 +96,19 @@ export async function loadLedger() {
       };
     }
 
-    const filmsWithBadges = films.map((film) => {
+    const filmsWithBadges = films.map((film: any) => {
       const stats = filmStats(film.id);
-      return {
-        ...film,
-        stats,
-        badges: filmAutoBadges(film, stats, heavyNomineeCutoff),
-      };
+      return { ...film, stats, badges: filmAutoBadges(film, stats, heavyNomineeCutoff) };
     });
 
-    const peopleWithBadges = people.map((person) => {
+    const peopleWithBadges = people.map((person: any) => {
       const stats = {
         nights: attendanceCounts.get(person.id) ?? 0,
         goldenChild: gcCounts.get(person.id) ?? 0,
         currentCrusade: currentCrusade(crusades, person.id),
         longestCrusade: longestCrusade(crusades, person.id),
       };
-      return {
-        ...person,
-        stats,
-        badges: personAutoBadges(person, stats),
-      };
+      return { ...person, stats, badges: personAutoBadges(person, stats) };
     });
 
     return {
@@ -135,6 +119,6 @@ export async function loadLedger() {
       heavyNomineeCutoff,
     };
   } catch {
-    return emptyLedger();
+    return buildDemoRaw() as any;
   }
 }
