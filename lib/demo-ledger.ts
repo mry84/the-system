@@ -24,7 +24,7 @@ const TITLES: [string, number, string | null, string | null, string | null][] = 
   ["Blade Runner", 1982, null, "https://image.tmdb.org/t/p/w500/63N9uy8nd9j7Eog2axPQ8lbr3Wj.jpg", "tt0083658"],
   ["The Thing", 1982, null, "https://image.tmdb.org/t/p/w500/tzGY49kseSE9QAKk47uuDGwnSCu.jpg", "tt0084787"],
   ["Die Hard", 1988, null, "https://image.tmdb.org/t/p/w500/7Bjd8kfmDSOzpmhySpEhkUyK2oH.jpg", "tt0095016"],
-  ["They Live", 1988, null, "https://image.tmdb.org/t/p/w500/t4p8r8kfB2jHiK8J36XnfSP8cRO.jpg", "tt0096256"],
+  ["They Live", 1988, null, "https://image.tmdb.org/t/p/w500/ngnybFTuopfbfmmEeX9jjBQQmF6.jpg", "tt0096256"],
   ["Pulp Fiction", 1994, null, "https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg", "tt0110912"],
   ["Fargo", 1996, null, "https://image.tmdb.org/t/p/w500/rt7cpEr1uP6RTZykBFhBTcRaKvG.jpg", "tt0116282"],
   ["The Big Lebowski", 1998, null, "https://image.tmdb.org/t/p/w500/3bv6WAp6BSxxYvB5ozKFUYuRA8C.jpg", "tt0118715"],
