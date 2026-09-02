@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { BadgeList } from "@/components/BadgeList";
-import { Poster } from "@/components/Poster";
 import { PosterSheet } from "@/components/PosterSheet";
 import { loadLedger } from "@/lib/queries";
 import { formatNightDate } from "@/lib/slug";
@@ -23,12 +22,6 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-8">
-      <p className="max-w-xl text-sm leading-6 text-muted">
-        The System is the weekly night. Two picks each. Three on a birthday. Anyone may call Unanimous.
-        The last two stand. The Golden Child chooses. Lobbying continues after that. Proceedings begin at 7.
-        A film may not start until 10. The night is not official until it is in The Log.
-      </p>
-
       {latest ? (
         <Link href={`/nights/${latest.id}`} className="block overflow-hidden rounded-2xl bg-bg2">
           <img
