@@ -93,38 +93,28 @@ const MORE: [string, number, string | null][] = [
   ["Gattaca", 1997, null], ["Requiem for a Dream", 2000, null], ["Whiplash", 2014, null],
   ["Nightcrawler", 2014, null], ["Snatch", 2000, null], ["Trainspotting", 1996, null],
   ["Out of Sight", 1998, null], ["The Limey", 1999, null], ["Get Shorty", 1995, null],
-  ["A Bronx Tale", 1993, null], ["Donnie Brasco", 1997, null], ["Carlito's Way", 1993, null],
-  ["New Jack City", 1991, null], ["Menace II Society", 1993, null], ["Malcolm X", 1992, null],
-  ["The Goonies", 1985, null], ["Stand by Me", 1986, null], ["Labyrinth", 1986, null],
-  ["The Dark Crystal", 1982, null], ["12 Monkeys", 1995, null], ["The Fisher King", 1991, null],
-  ["Batman Begins", 2005, null], ["The Master", 2012, null], ["Punch-Drunk Love", 2002, null],
-  ["Raising Arizona", 1987, null], ["Barton Fink", 1991, null], ["The Man Who Wasn't There", 2001, null],
-  ["The Game", 1997, null], ["Panic Room", 2002, null], ["Manhunter", 1986, null],
-  ["Red Dragon", 2002, null], ["Training Day", 2001, null], ["Miami Vice", 2006, null],
-  ["The Green Mile", 1999, null], ["American History X", 1998, null], ["Adaptation", 2002, null],
-  ["Braveheart", 1995, null], ["Indiana Jones and the Last Crusade", 1989, null], ["Die Hard 2", 1990, null],
-  ["The Rock", 1996, null], ["Con Air", 1997, null], ["Bad Boys", 1995, null],
-  ["Commando", 1985, null], ["The Running Man", 1987, null], ["Christine", 1983, null],
-  ["The Fog", 1980, null], ["Prince of Darkness", 1987, null], ["Assault on Precinct 13", 1976, null],
-  ["Dead Ringers", 1988, null], ["Scanners", 1981, null], ["Naked Lunch", 1991, null],
-  ["Lost Highway", 1997, null], ["The Elephant Man", 1980, null], ["The King of Comedy", 1982, null],
-  ["The French Connection", 1971, null], ["The Long Goodbye", 1973, null], ["Point Blank", 1967, null],
-  ["Army of Shadows", 1969, null], ["Pickpocket", 1959, null], ["Andrei Rublev", 1966, null],
-  ["The Mirror", 1975, null], ["Kagemusha", 1980, null], ["Throne of Blood", 1957, null],
-  ["Sanjuro", 1962, null], ["The Hidden Fortress", 1958, null], ["Tokyo Drifter", 1966, null],
-  ["Branded to Kill", 1967, null], ["Sword of Doom", 1966, null], ["Fireworks", 1997, null],
-  ["Brother", 2000, null], ["Outrage", 2010, null], ["Tetsuo: The Iron Man", 1989, null],
-  ["Joint Security Area", 2000, null], ["Thirst", 2009, null], ["Snowpiercer", 2013, null],
-  ["A Tale of Two Sisters", 2003, null], ["Initial D", 2005, "HK"], ["Who Am I?", 1998, "HK"],
-  ["CJ7", 2008, "HK"], ["Armour of God II: Operation Condor", 1991, "HK"], ["The Young Master", 1980, "HK"],
-  ["The Prodigal Son", 1981, "HK"], ["Heart of Dragon", 1985, "HK"], ["Encounters of the Spooky Kind", 1980, "HK"],
-  ["Pedicab Driver", 1989, "HK"], ["Royal Warriors", 1986, "HK"], ["Magnificent Warriors", 1987, "HK"],
-  ["Project A Part II", 1987, "HK"], ["Once Upon a Time in China II", 1992, "HK"], ["The Blade", 1995, "HK"],
 ];
+
+const EXTRA_POSTERS: Record<string, string> = {
+  "Taxi Driver": "https://image.tmdb.org/t/p/w500/ekstpH614fwDX8DUln1a2Opz0N8.jpg",
+  Alien: "https://image.tmdb.org/t/p/w500/vfrQk5IPloGg1v9Rzbh2Eg3VGyM.jpg",
+  "Fight Club": "https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
+  "The Shawshank Redemption": "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
+  "The Dark Knight": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+  Inception: "https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg",
+  "The Shining": "https://image.tmdb.org/t/p/w500/b6ko0IKC8MdYBBPkkA1aBPLe2yz.jpg",
+  Parasite: "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+  "Apocalypse Now": "https://image.tmdb.org/t/p/w500/gQB8Y5RCMkv2zwzFHbUJX3kAhvA.jpg",
+  "Jurassic Park": "https://image.tmdb.org/t/p/w500/oU7Oq2kFAAlGqbU4VoAE36g4hoI.jpg",
+  Gladiator: "https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg",
+  "There Will Be Blood": "https://image.tmdb.org/t/p/w500/fa0RDkAlCec0STeMNAhPaF89q6U.jpg",
+  Whiplash: "https://image.tmdb.org/t/p/w500/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+  "The Fifth Element": "https://image.tmdb.org/t/p/w500/fPtlCO1yQtnoLHOwKtWz7db6RGU.jpg",
+};
 
 const TITLES: [string, number, string | null, string | null, string | null][] = [
   ...CORE,
-  ...MORE.map(([title, year, country]) => [title, year, country, null, null] as [string, number, string | null, string | null, string | null]),
+  ...MORE.map(([title, year, country]) => [title, year, country, EXTRA_POSTERS[title] ?? null, null] as [string, number, string | null, string | null, string | null]),
 ];
 
 function mulberry32(seed: number) {
@@ -156,6 +146,7 @@ export function buildDemoRaw() {
     tmdbId: null as number | null,
     imdbId,
   }));
+  const withPoster = films.filter((film) => film.posterPath);
 
   const nights = Array.from({ length: 80 }, (_, index) => {
     const year = 1998 + Math.floor(index / 4);
@@ -164,13 +155,14 @@ export function buildDemoRaw() {
     const count = Math.min(eligible.length, 4 + Math.floor(rand() * 3));
     const attendees = [...eligible].sort(() => rand() - 0.5).slice(0, Math.max(3, count));
     const goldenChild = attendees[Math.floor(rand() * attendees.length)];
-    const watched = films[Math.floor(rand() * films.length)];
-    let other = films[Math.floor(rand() * films.length)];
-    if (other.id === watched.id) other = films[(films.indexOf(watched) + 1) % films.length];
+    const pool = withPoster.length ? withPoster : films;
+    const watched = pool[Math.floor(rand() * pool.length)];
+    let other = pool[Math.floor(rand() * pool.length)];
+    if (other.id === watched.id) other = pool[(pool.indexOf(watched) + 1) % pool.length];
     const picks = attendees.flatMap((person, pi) => {
-      const a = films[Math.floor(rand() * films.length)];
-      let b = films[Math.floor(rand() * films.length)];
-      if (b.id === a.id) b = films[(films.indexOf(a) + 7) % films.length];
+      const a = pool[Math.floor(rand() * pool.length)];
+      let b = pool[Math.floor(rand() * pool.length)];
+      if (b.id === a.id) b = pool[(pool.indexOf(a) + 7) % pool.length];
       return [
         { id: `p-${index}-${pi}-a`, personId: person.id, filmId: a.id, weight: 1, person, film: a },
         { id: `p-${index}-${pi}-b`, personId: person.id, filmId: b.id, weight: 1, person, film: b },
