@@ -27,14 +27,24 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      className="min-h-10 px-2 text-sm text-muted hover:text-paper"
+      aria-label={theme === "light" ? "Night" : "Day"}
+      className="grid size-11 place-items-center rounded-full text-muted hover:text-paper"
       onClick={() => {
         const next = theme === "light" ? "dark" : "light";
         setTheme(next);
         apply(next);
       }}
     >
-      {theme === "light" ? "Night" : "Light"}
+      {theme === "light" ? (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M21 14.3A8.5 8.5 0 0 1 9.7 3 7 7 0 1 0 21 14.3Z" />
+        </svg>
+      ) : (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+        </svg>
+      )}
     </button>
   );
 }

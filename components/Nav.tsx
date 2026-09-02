@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const links = [
-  { href: "/", label: "Home" },
   { href: "/archive", label: "Archive" },
   { href: "/people", label: "Members" },
   { href: "/log", label: "The Log" },
@@ -30,7 +29,7 @@ export function Nav() {
       </header>
 
       <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-bg/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md sm:hidden">
-        <div className="grid grid-cols-4">
+        <div className="grid grid-cols-3">
           {links.map((link) => (
             <Link
               key={link.href}
