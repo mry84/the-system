@@ -4,12 +4,14 @@ import { Poster } from "@/components/Poster";
 import { PosterSheet } from "@/components/PosterSheet";
 import { loadLedger } from "@/lib/queries";
 import { formatNightDate } from "@/lib/slug";
+import { nightVerdict, otherFinalist } from "@/lib/verdict";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const { nights, films, people, crusades } = await loadLedger();
   const latest = nights[0];
+  const other = latest ? otherFinalist(latest) : null;
   const mostWatched = [...films]
     .sort((a, b) => b.stats.watchedCount - a.stats.watchedCount)
     .slice(0, 8);
@@ -21,11 +23,6 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-8">
-      {!latest ? (
-        <div className="rounded-2xl bg-bg2 px-4 py-5 text-sm leading-6 text-muted">
-          The System is live. The Log is not attached yet. Nights appear after Neon is connected.
-        </div>
-      ) : null}
       {latest ? (
         <Link href={`/nights/${latest.id}`} className="block overflow-hidden rounded-2xl bg-bg2">
           <div className="grid sm:grid-cols-[160px_1fr]">
@@ -39,16 +36,10 @@ export default async function HomePage() {
             </div>
             <div className="flex flex-col justify-center px-5 py-5">
               <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted">Last session</p>
-              <h2 className="mt-1 text-3xl font-semibold tracking-tight">{latest.watchedFilm.title}</h2>
+              <h2 className="mt-1 text-2xl font-semibold tracking-tight leading-7">{nightVerdict(latest)}</h2>
               <p className="mt-2 text-sm text-muted">
                 {formatNightDate(latest.date)}
-                {" · "}
-                {latest.unanimous
-                  ? "Unanimous"
-                  : `Golden Child ${latest.goldenChild?.name ?? "unrecorded"}`}
-              </p>
-              <p className="mt-3 text-sm leading-6 text-paper/80">
-                {latest.notes || "Entered in The Log. No further remark."}
+                {other ? ` · ${latest.watchedFilm.title} / ${other.title}` : ""}
               </p>
             </div>
           </div>
