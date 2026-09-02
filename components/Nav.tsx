@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const links = [
   { href: "/", label: "Home" },
@@ -11,17 +12,20 @@ export function Nav() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
           <Link href="/" className="text-[22px] font-semibold tracking-tight">
             The System
           </Link>
-          <nav className="hidden items-center gap-6 text-sm text-muted sm:flex">
-            {links.map((link) => (
-              <Link key={link.href} href={link.href} className="hover:text-paper">
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="flex items-center gap-4">
+            <nav className="hidden items-center gap-6 text-sm text-muted sm:flex">
+              {links.map((link) => (
+                <Link key={link.href} href={link.href} className="hover:text-paper">
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 

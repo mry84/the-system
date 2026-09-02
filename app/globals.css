@@ -11,6 +11,17 @@
   --cta-2: #7c5cff;
 }
 
+html.light {
+  --bg: #f3f3f3;
+  --bg-2: #ffffff;
+  --bg-3: #e8e8e8;
+  --paper: #141414;
+  --muted: #6a6a6a;
+  --line: #d6d6d6;
+  --cta: #e23a1c;
+  --cta-2: #5b3fe0;
+}
+
 @theme inline {
   --color-bg: var(--bg);
   --color-bg2: var(--bg-2);
