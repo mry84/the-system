@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { loadLedger } from "@/lib/queries";
 import { formatNightDate } from "@/lib/slug";
+import { nightVerdict, otherFinalist } from "@/lib/verdict";
 
 export const dynamic = "force-dynamic";
 
@@ -19,13 +20,15 @@ export default async function ArchivePage({
       night.goldenChild?.name ?? "",
       night.unanimous ? "unanimous" : "",
       night.notes ?? "",
-      ...night.attendees.map((a) => a.person.name),
-      ...night.picks.map((p) => p.film.title),
-      ...night.finalists.map((f) => f.film.title),
-    ].join(" ").toLowerCase();
+      ...night.attendees.map((a: { person: { name: string } }) => a.person.name),
+      ...night.picks.map((p: { film: { title: string } }) => p.film.title),
+      ...night.finalists.map((f: { film: { title: string } }) => f.film.title),
+    ]
+      .join(" ")
+      .toLowerCase();
     if (q && !hay.includes(q.toLowerCase())) return false;
     if (year && night.date.getUTCFullYear() !== Number(year)) return false;
-    if (person && !night.attendees.some((a) => a.person.slug === person)) return false;
+    if (person && !night.attendees.some((a: { person: { slug: string } }) => a.person.slug === person)) return false;
     return true;
   });
 
@@ -38,13 +41,17 @@ export default async function ArchivePage({
           <select name="year" defaultValue={year} className="rounded-xl">
             <option value="">All years</option>
             {years.map((y) => (
-              <option key={y} value={y}>{y}</option>
+              <option key={y} value={y}>
+                {y}
+              </option>
             ))}
           </select>
           <select name="person" defaultValue={person} className="rounded-xl">
             <option value="">Any member</option>
-            {people.map((p) => (
-              <option key={p.id} value={p.slug}>{p.name}</option>
+            {people.map((p: { id: string; slug: string; name: string }) => (
+              <option key={p.id} value={p.slug}>
+                {p.name}
+              </option>
             ))}
           </select>
         </div>
@@ -52,22 +59,22 @@ export default async function ArchivePage({
       </form>
       <p className="text-sm text-muted">{filtered.length} sessions</p>
       <ul className="grid gap-2">
-        {filtered.map((night) => (
-          <li key={night.id}>
-            <Link href={`/nights/${night.id}`} className="block rounded-2xl bg-bg2 px-4 py-4">
-              <p className="text-xs text-muted">{formatNightDate(night.date)}</p>
-              <p className="mt-1 text-lg font-semibold">
-                {night.watchedFilm.title}{" "}
-                <span className="text-sm font-normal text-muted">({night.watchedFilm.year})</span>
-              </p>
-              <p className="mt-1 text-sm text-muted">
-                {night.unanimous ? "Unanimous" : `Golden Child ${night.goldenChild?.name ?? "unrecorded"}`}
-                {" · "}
-                {night.attendees.length} present
-              </p>
-            </Link>
-          </li>
-        ))}
+        {filtered.map((night) => {
+          const other = otherFinalist(night);
+          return (
+            <li key={night.id}>
+              <Link href={`/nights/${night.id}`} className="block rounded-2xl bg-bg2 px-4 py-4">
+                <p className="text-xs text-muted">{formatNightDate(night.date)}</p>
+                <p className="mt-1 text-lg font-semibold leading-6">{nightVerdict(night)}</p>
+                {other ? (
+                  <p className="mt-1 text-sm text-muted">
+                    {night.watchedFilm.title} / {other.title}
+                  </p>
+                ) : null}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
