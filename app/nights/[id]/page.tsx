@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PosterSheet } from "@/components/PosterSheet";
 import { loadLedger } from "@/lib/queries";
 import { formatNightDate } from "@/lib/slug";
+import { nightVerdict } from "@/lib/verdict";
 
 export const dynamic = "force-dynamic";
 
@@ -25,26 +26,12 @@ export default async function NightPage({ params }: { params: Promise<{ id: stri
         <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted">
           {formatNightDate(night.date)}
         </p>
-        <h2 className="mt-2 text-3xl font-semibold tracking-tight">{night.watchedFilm.title}</h2>
-        <p className="mt-2 text-muted">
-          {night.unanimous ? (
-            "Unanimous"
-          ) : night.goldenChild ? (
-            <>
-              Golden Child{" "}
-              <Link href={`/people/${night.goldenChild.slug}`} className="text-cta">
-                {night.goldenChild.name}
-              </Link>
-            </>
-          ) : (
-            "Golden Child unrecorded"
-          )}
-        </p>
+        <h2 className="mt-2 text-3xl font-semibold tracking-tight">{nightVerdict(night)}</h2>
       </div>
 
       <section className="grid gap-6 sm:grid-cols-2">
-        {night.finalists.map((finalist: any) => {
-          const watched = finalist.filmId === night.watchedFilmId;
+        {night.finalists.map((finalist: { filmId: string; film: any }) => {
+          const chosen = finalist.filmId === night.watchedFilmId;
           return (
             <div key={finalist.filmId}>
               <div className="overflow-hidden rounded-xl bg-bg2">
@@ -52,7 +39,7 @@ export default async function NightPage({ params }: { params: Promise<{ id: stri
               </div>
               <Link href={`/films/${finalist.film.slug}`} className="mt-3 block">
                 <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">
-                  {watched ? "Screened" : "Finalist"}
+                  {chosen ? "Chosen" : "Not chosen"}
                 </p>
                 <p className="text-2xl font-semibold">
                   {finalist.film.title}{" "}
@@ -64,12 +51,10 @@ export default async function NightPage({ params }: { params: Promise<{ id: stri
         })}
       </section>
 
-      {night.notes ? (
-        <p className="max-w-2xl text-lg leading-8 text-paper/85">{night.notes}</p>
-      ) : null}
+      {night.notes ? <p className="max-w-2xl text-lg leading-8 text-paper/85">{night.notes}</p> : null}
 
       <section>
-        <h3 className="text-2xl font-semibold">The room</h3>
+        <h3 className="text-2xl font-semibold">Who</h3>
         <ul className="mt-4 divide-y divide-line">
           {night.attendees.map((row: any) => (
             <li key={row.personId} className="py-4">
