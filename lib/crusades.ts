@@ -3,14 +3,20 @@ import type { Crusade } from "./types";
 type NightSlice = {
   id: string;
   date: Date;
-  goldenChildId: string;
+  goldenChildId: string | null;
   watchedFilmId: string;
   attendees: { personId: string }[];
   picks: { personId: string; filmId: string; weight: number }[];
 };
 
 type PersonRef = { id: string; name: string; slug: string };
-type FilmRef = { id: string; title: string; year: number; slug: string; posterPath: string | null };
+type FilmRef = {
+  id: string;
+  title: string;
+  year: number;
+  slug: string;
+  posterPath: string | null;
+};
 
 export function computeCrusades(
   nights: NightSlice[],
@@ -20,10 +26,14 @@ export function computeCrusades(
   const personById = new Map(people.map((p) => [p.id, p]));
   const filmById = new Map(films.map((f) => [f.id, f]));
   const ordered = [...nights].sort((a, b) => a.date.getTime() - b.date.getTime());
+
   const runs: Crusade[] = [];
 
   for (const person of people) {
-    const attended = ordered.filter((n) => n.attendees.some((a) => a.personId === person.id));
+    const attended = ordered.filter((n) =>
+      n.attendees.some((a) => a.personId === person.id),
+    );
+
     let current: { filmId: string; length: number } | null = null;
 
     const close = (active: boolean) => {

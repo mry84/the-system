@@ -59,7 +59,9 @@ export async function loadLedger() {
 
   for (const night of nights) {
     watchedCounts.set(night.watchedFilmId, (watchedCounts.get(night.watchedFilmId) ?? 0) + 1);
-    gcCounts.set(night.goldenChildId, (gcCounts.get(night.goldenChildId) ?? 0) + 1);
+    if (night.goldenChildId) {
+      gcCounts.set(night.goldenChildId, (gcCounts.get(night.goldenChildId) ?? 0) + 1);
+    }
     for (const a of night.attendees) {
       attendanceCounts.set(a.personId, (attendanceCounts.get(a.personId) ?? 0) + 1);
     }
@@ -91,7 +93,11 @@ export async function loadLedger() {
 
   const filmsWithBadges = films.map((film) => {
     const stats = filmStats(film.id);
-    return { ...film, stats, badges: filmAutoBadges(film, stats, heavyNomineeCutoff) };
+    return {
+      ...film,
+      stats,
+      badges: filmAutoBadges(film, stats, heavyNomineeCutoff),
+    };
   });
 
   const peopleWithBadges = people.map((person) => {
@@ -101,7 +107,11 @@ export async function loadLedger() {
       currentCrusade: currentCrusade(crusades, person.id),
       longestCrusade: longestCrusade(crusades, person.id),
     };
-    return { ...person, stats, badges: personAutoBadges(person, stats) };
+    return {
+      ...person,
+      stats,
+      badges: personAutoBadges(person, stats),
+    };
   });
 
   return {
